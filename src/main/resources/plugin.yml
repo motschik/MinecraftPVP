@@ -1,0 +1,4 @@
+name: "MinecraftPVP"
+version: "${project.version}"
+main: "com.motschik.spigotplugin.pvp.PvpPlugin"
+api-version: "1.16"
