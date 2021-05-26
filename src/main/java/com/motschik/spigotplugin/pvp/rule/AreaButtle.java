@@ -22,15 +22,15 @@ public class AreaButtle extends PvpRule {
 
   private int upperTick = 60;
 
-  AreaButtleThread thread;
+  AreaButtleThread thread = new AreaButtleThread(this);
 
   public AreaButtle(Game game, JavaPlugin plugin) {
     super(game, plugin);
   }
 
   @Override
-  public void startTickCycle() {
-    if (thread != null) {
+  public synchronized void startTickCycle() {
+    if (thread.isAlive()) {
       thread.setEnable(false);
     }
     thread = new AreaButtleThread(this);

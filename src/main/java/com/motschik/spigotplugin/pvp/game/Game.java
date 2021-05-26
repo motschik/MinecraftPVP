@@ -52,9 +52,6 @@ public abstract class Game {
    * ゲーム開始.
    */
   public void startGame() {
-    if (!enable) {
-      ruleList.get(selectedRule).startTickCycle();
-    }
     enable = true;
   }
 

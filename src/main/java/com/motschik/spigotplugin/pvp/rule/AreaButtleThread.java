@@ -4,7 +4,7 @@ public class AreaButtleThread extends Thread {
 
   private final AreaButtle area;
 
-  private boolean enable;
+  private boolean enable = false;
 
   /**
    * @param area
@@ -35,5 +35,9 @@ public class AreaButtleThread extends Thread {
 
   public void setEnable(boolean enable) {
     this.enable = enable;
+  }
+
+  public boolean getEnable() {
+    return enable;
   }
 }
