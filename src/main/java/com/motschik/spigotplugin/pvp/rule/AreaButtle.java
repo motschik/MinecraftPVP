@@ -20,7 +20,7 @@ public class AreaButtle extends PvpRule {
 
   private Map<String, Integer> tickMap = new HashMap<>();
 
-  private int upperTick = 20;
+  private int upperTick = 60;
 
   AreaButtleThread thread;
 
@@ -56,7 +56,8 @@ public class AreaButtle extends PvpRule {
   }
 
   public synchronized void checkAndCount() {
-    plugin.getLogger().info("checkAndCount");
+
+    plugin.getLogger().info("checktick");
 
     if (location == null || location2 == null) {
       return;
@@ -68,7 +69,6 @@ public class AreaButtle extends PvpRule {
         .filter(player -> player.getGameMode().equals(GameMode.SURVIVAL))//
         .forEach(player -> {
           if (playerInArea(player)) {
-            plugin.getLogger().info(player.getName() + " in area.");
             Team team = game.getBoard().getEntryTeam(player.getName());
             if (team != null) {
               teamSet.add(team);
@@ -77,7 +77,15 @@ public class AreaButtle extends PvpRule {
         });
     if (teamSet.size() == 1) {
       Team team = teamSet.stream().findFirst().get();
-      game.addScore(team.getName(), 1);
+
+      tickMap.computeIfAbsent(team.getName(), t -> 0);
+      int nextTick = tickMap.get(team.getName()) + 1;
+      if (nextTick > upperTick) {
+        nextTick = 0;
+        game.addScore(team.getName(), 1);
+      }
+      tickMap.replace(team.getName(), nextTick);
+
     }
   }
 
@@ -110,4 +118,12 @@ public class AreaButtle extends PvpRule {
     return true;
   }
 
+
+  public int getUpperTick() {
+    return upperTick;
+  }
+
+  public void setUpperTick(int upperTick) {
+    this.upperTick = upperTick;
+  }
 }

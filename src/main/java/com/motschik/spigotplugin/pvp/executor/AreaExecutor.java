@@ -40,6 +40,15 @@ public class AreaExecutor implements CommandExecutor {
         sender.sendMessage("set area to-point");
         rule.setAreaTo(((Player) sender).getLocation());
 
+      } else if ("uppertick".equals(args[0])) {
+
+        sender.sendMessage("set uppertick");
+        try {
+          rule.setUpperTick(Integer.parseInt(args[1]));
+        } catch (NumberFormatException e) {
+          sender.sendMessage("number format error");
+        }
+
       }
 
     }

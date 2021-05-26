@@ -26,8 +26,12 @@ public class TeamGame extends Game {
    * {@inheritDoc}
    */
   @Override
-  public void gameSet() {
-    super.gameSet();
+  public void gameSet(String entry) {
+    super.gameSet(entry);
+    String title = entry + " team win!!";
+    plugin.getServer().getOnlinePlayers().forEach(player -> {
+      player.sendTitle(title, "", 5, 70, 10);
+    });
   }
 
   /**
@@ -42,6 +46,7 @@ public class TeamGame extends Game {
     Objective point = board.getObjective("point");
     teams.forEach(team -> {
       point.getScore(team.getTeam().getName()).setScore(0);
+      team.getTeam().addEntry(team.getTeam().getName());
     });
     Objective killCount = board.getObjective("kill");
     plugin.getServer().getOnlinePlayers().forEach(player -> {
@@ -182,7 +187,7 @@ public class TeamGame extends Game {
     int nextScore = score.getScore() + scr;
     if (nextScore > getGameConfig().getScoreLimit()) {
       nextScore = getGameConfig().getScoreLimit();
-      gameSet();
+      gameSet(teamName);
     }
     score.setScore(nextScore);
   }

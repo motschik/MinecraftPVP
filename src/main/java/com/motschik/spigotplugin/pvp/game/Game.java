@@ -35,7 +35,7 @@ public abstract class Game {
   /**
    * ゲームセット処理.
    */
-  public void gameSet() {
+  public void gameSet(String entry) {
     ruleList.get(selectedRule).stopTickCycle();
   }
 
@@ -62,6 +62,7 @@ public abstract class Game {
    * ゲーム終了.
    */
   public void endGame() {
+    ruleList.get(selectedRule).stopTickCycle();
     board.clearSlot(DisplaySlot.PLAYER_LIST);
     board.clearSlot(DisplaySlot.SIDEBAR);
     board.clearSlot(DisplaySlot.BELOW_NAME);
