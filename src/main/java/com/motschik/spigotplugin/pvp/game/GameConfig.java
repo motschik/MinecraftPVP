@@ -2,13 +2,13 @@ package com.motschik.spigotplugin.pvp.game;
 
 public class GameConfig {
   /** 時間制限の有無. */
-  private boolean timeUp;
+  private boolean timeUp = false;
   /** スコア勝利の有無. */
-  private boolean scoreUp;
+  private boolean scoreUp = true;
   /** 時間制限. */
-  private int timeLimit;
+  private int timeLimit = 0;
   /** スコア勝利条件値. */
-  private int scoreLimit;
+  private int scoreLimit = 100;
 
 
   public GameConfig() {}

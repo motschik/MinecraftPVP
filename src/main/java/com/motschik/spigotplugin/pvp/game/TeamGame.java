@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.RenderType;
+import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Team;
 import org.bukkit.scoreboard.Team.Option;
 import org.bukkit.scoreboard.Team.OptionStatus;
@@ -16,7 +17,6 @@ import org.bukkit.scoreboard.Team.OptionStatus;
 public class TeamGame extends Game {
 
   List<PvpTeam> teams = new ArrayList<>();
-
 
   public TeamGame(JavaPlugin plugin) {
     super(plugin);
@@ -26,8 +26,12 @@ public class TeamGame extends Game {
    * {@inheritDoc}
    */
   @Override
-  public void gameSet() {
-    super.gameSet();
+  public void gameSet(String entry) {
+    super.gameSet(entry);
+    String title = entry + " team win!!";
+    plugin.getServer().getOnlinePlayers().forEach(player -> {
+      player.sendTitle(title, "", 5, 70, 10);
+    });
   }
 
   /**
@@ -36,9 +40,13 @@ public class TeamGame extends Game {
   @Override
   public void resetScore() {
     super.resetScore();
+    if (!enable) {
+      return;
+    }
     Objective point = board.getObjective("point");
     teams.forEach(team -> {
       point.getScore(team.getTeam().getName()).setScore(0);
+      team.getTeam().addEntry(team.getTeam().getName());
     });
     Objective killCount = board.getObjective("kill");
     plugin.getServer().getOnlinePlayers().forEach(player -> {
@@ -51,7 +59,11 @@ public class TeamGame extends Game {
    */
   @Override
   public void startGame() {
+    if (enable) {
+      return;
+    }
     super.startGame();
+
 
     // キルカウント追加
     Objective killCount =
@@ -163,4 +175,22 @@ public class TeamGame extends Game {
       });
     });
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void addScore(String entry, int scr) {
+    String teamName = board.getEntryTeam(entry).getName();
+
+    Score score = board.getObjective("point").getScore(teamName);
+    int nextScore = score.getScore() + scr;
+    if (nextScore > getGameConfig().getScoreLimit()) {
+      nextScore = getGameConfig().getScoreLimit();
+      gameSet(teamName);
+    }
+    score.setScore(nextScore);
+  }
+
+
 }
