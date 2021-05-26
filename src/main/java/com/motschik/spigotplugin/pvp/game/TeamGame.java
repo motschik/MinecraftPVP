@@ -3,8 +3,6 @@ package com.motschik.spigotplugin.pvp.game;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.ChatColor;
-import org.bukkit.GameRule;
-import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -73,11 +71,6 @@ public class TeamGame extends Game {
     // ポイントリスト追加
     Objective point = board.registerNewObjective("point", "dummy", "point", RenderType.INTEGER);
     point.setDisplaySlot(DisplaySlot.SIDEBAR);
-
-    // ゲームルールの設定
-    World world = plugin.getServer().getWorld("world");
-    world.setGameRule(GameRule.NATURAL_REGENERATION, false);
-    world.setGameRule(GameRule.KEEP_INVENTORY, true);
 
     resetScore();
   }

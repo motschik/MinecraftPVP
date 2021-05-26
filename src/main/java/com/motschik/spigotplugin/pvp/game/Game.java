@@ -3,6 +3,8 @@ package com.motschik.spigotplugin.pvp.game;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Scoreboard;
@@ -53,6 +55,10 @@ public abstract class Game {
    */
   public void startGame() {
     enable = true;
+    // ゲームルールの設定
+    World world = plugin.getServer().getWorld("world");
+    world.setGameRule(GameRule.NATURAL_REGENERATION, false);
+    world.setGameRule(GameRule.KEEP_INVENTORY, true);
   }
 
   /**
@@ -66,6 +72,10 @@ public abstract class Game {
     board.getObjectives().forEach(obj -> {
       obj.unregister();
     });
+    // ゲームルールの設定
+    World world = plugin.getServer().getWorld("world");
+    world.setGameRule(GameRule.NATURAL_REGENERATION, true);
+    world.setGameRule(GameRule.KEEP_INVENTORY, false);
     enable = false;
   }
 
