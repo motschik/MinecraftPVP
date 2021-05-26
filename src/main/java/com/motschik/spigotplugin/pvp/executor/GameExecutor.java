@@ -11,9 +11,17 @@ public class GameExecutor implements CommandExecutor {
   private final JavaPlugin plugin;
   private final TeamGame game;
 
-  public GameExecutor(JavaPlugin plugin) {
+  public GameExecutor(JavaPlugin plugin, TeamGame game) {
     this.plugin = plugin;
-    this.game = new TeamGame(plugin);
+    this.game = game;
+
+    plugin.getCommand("pvpstart").setExecutor(this);
+    plugin.getCommand("pvpreset").setExecutor(this);
+    plugin.getCommand("pvpend").setExecutor(this);
+    plugin.getCommand("addteam").setExecutor(this);
+    plugin.getCommand("removeteam").setExecutor(this);
+    plugin.getCommand("removeallteam").setExecutor(this);
+    plugin.getCommand("jointeam").setExecutor(this);
   }
 
   @Override
