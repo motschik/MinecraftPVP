@@ -2,3 +2,19 @@ name: "MinecraftPVP"
 version: "${project.version}"
 main: "com.motschik.spigotplugin.pvp.PvpPlugin"
 api-version: "1.16"
+
+commands:
+  pvpstart:
+    description: start pvp.
+  pvpreset:
+    description: reset pvp score.
+  pvpend:
+    description: end pvp.
+  addteam:
+    description: add team.
+  removeteam:
+    description: remove team.
+  removeallteam:
+    description: remove all team.
+  jointeam:
+    description: join team.
