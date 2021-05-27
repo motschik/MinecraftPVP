@@ -2,8 +2,9 @@ package com.motschik.spigotplugin.pvp.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.bukkit.ChatColor;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.RenderType;
@@ -11,12 +12,14 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Team;
 import org.bukkit.scoreboard.Team.Option;
 import org.bukkit.scoreboard.Team.OptionStatus;
+import com.motschik.spigotplugin.pvp.PvpPlugin;
+import com.motschik.spigotplugin.pvp.color.TeamColor;
 
 public class TeamGame extends Game {
 
   List<PvpTeam> teams = new ArrayList<>();
 
-  public TeamGame(JavaPlugin plugin) {
+  public TeamGame(PvpPlugin plugin) {
     super(plugin);
   }
 
@@ -81,6 +84,14 @@ public class TeamGame extends Game {
   @Override
   public void endGame() {
     super.endGame();
+    plugin.getServer().getOnlinePlayers().forEach(player -> {
+      PlayerInventory inventory = player.getInventory();
+      ItemStack helmet = inventory.getHelmet();
+      if (helmet != null && helmet.getItemMeta().isUnbreakable()) {
+        inventory.clear();
+      }
+
+    });
     removeTeamPlayerAll();
   }
 
@@ -92,14 +103,10 @@ public class TeamGame extends Game {
    */
   public boolean addTeam(String name, String colorCode) {
 
-    ChatColor color = null;
+    TeamColor color = null;
     try {
-      color = ChatColor.valueOf(colorCode);
+      color = TeamColor.valueOf(colorCode);
     } catch (IllegalArgumentException e) {
-      color = ChatColor.getByChar(colorCode);
-    }
-
-    if (color == null) {
       return false;
     }
 
@@ -107,7 +114,7 @@ public class TeamGame extends Game {
     Team team = pvpTeam.getTeam();
 
     team.setDisplayName(name);
-    team.setColor(color);
+    team.setColor(color.getChatColor());
     team.setCanSeeFriendlyInvisibles(true);
     team.setAllowFriendlyFire(false);
     team.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.FOR_OTHER_TEAMS);
@@ -152,12 +159,25 @@ public class TeamGame extends Game {
    * チームへ追加.
    *
    * @param teamName チーム名
-   * @param playerName プレイヤー
+   * @param player プレイヤー
    * @return result
    */
-  public boolean joinTeam(String teamName, String playerName) {
-    board.getTeam(teamName).addEntry(playerName);
+  public boolean joinTeam(String teamName, Player player) {
+    if (!ebleJoinGame(player)) {
+      return false;
+    }
+    board.getTeam(teamName).addEntry(player.getName());
+    plugin.getEquipment().equipTeamHelmet(player);
     return true;
+  }
+
+  private boolean ebleJoinGame(Player player) {
+    PlayerInventory inventory = player.getInventory();
+    ItemStack helmet = inventory.getHelmet();
+    if (helmet != null && helmet.getItemMeta().isUnbreakable()) {
+      return true;
+    }
+    return inventory.isEmpty();
   }
 
   // チーム解散
@@ -184,6 +204,7 @@ public class TeamGame extends Game {
     }
     score.setScore(nextScore);
   }
+
 
 
 }

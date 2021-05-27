@@ -57,7 +57,6 @@ public class AreaButtle extends PvpRule {
 
   public synchronized void checkAndCount() {
 
-    plugin.getLogger().info("checktick");
 
     if (location == null || location2 == null) {
       return;

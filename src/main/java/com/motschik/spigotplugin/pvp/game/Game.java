@@ -5,16 +5,16 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
+import com.motschik.spigotplugin.pvp.PvpPlugin;
 import com.motschik.spigotplugin.pvp.rule.PvpRule;
 
 public abstract class Game {
 
   private GameConfig gameConfig = new GameConfig();
-  protected final JavaPlugin plugin;
+  protected final PvpPlugin plugin;
 
   protected Scoreboard board;
 
@@ -28,7 +28,7 @@ public abstract class Game {
    *
    * @param plugin プラグインインスタンス
    */
-  public Game(JavaPlugin plugin) {
+  public Game(PvpPlugin plugin) {
     this.plugin = plugin;
     ScoreboardManager manager = Bukkit.getScoreboardManager();
     board = manager.getMainScoreboard();

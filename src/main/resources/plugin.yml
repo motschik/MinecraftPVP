@@ -20,3 +20,5 @@ commands:
     description: join team.
   area:
     description: area setting.
+  equip:
+    description: equipment.
