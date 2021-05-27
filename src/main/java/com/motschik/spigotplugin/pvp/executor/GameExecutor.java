@@ -3,6 +3,7 @@ package com.motschik.spigotplugin.pvp.executor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.motschik.spigotplugin.pvp.game.TeamGame;
 
@@ -61,9 +62,13 @@ public class GameExecutor implements CommandExecutor {
 
       sender.sendMessage(str);
       if (args.length == 1) {
-        game.joinTeam(args[0], sender.getName());
+        game.joinTeam(args[0], (Player) sender);
       } else if (args.length == 2) {
-        game.joinTeam(args[0], args[1]);
+
+        Player playerName = plugin.getServer().getOnlinePlayers().stream()
+            .filter(player -> player.getName().equals(args[1])).findFirst().get();
+
+        game.joinTeam(args[0], playerName);
       }
     }
 
