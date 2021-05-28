@@ -58,13 +58,14 @@ public class Equipment {
     inv.clear();
     inv.setHelmet(helmet);
 
-    Bukkit.dispatchCommand(player,
-        "give @p minecraft:crossbow{Enchantments:[{id:quick_charge,lvl:5}]}");
-    Bukkit.dispatchCommand(player,
-        "give @p minecraft:splash_potion{display:{Name:\"\\\"Splash Potion\\\"\"},CustomPotionColor:16711680,CustomPotionEffects:[{Id:7,Amplifier:2,Duration:200}]} 1");
-    Bukkit.dispatchCommand(player,
-        "give @p minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},CustomPotionColor:65322,CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
-    Bukkit.dispatchCommand(player, "give @p minecraft:arrow 128");
+    Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
+        "give " + player.getName() + " minecraft:crossbow{Enchantments:[{id:quick_charge,lvl:5}]}");
+    Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
+        + " minecraft:splash_potion{display:{Name:\"\\\"Splash Potion\\\"\"},CustomPotionColor:16711680,CustomPotionEffects:[{Id:7,Amplifier:2,Duration:200}]} 1");
+    Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
+        + " minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},CustomPotionColor:65322,CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
+    Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
+        "give " + player.getName() + " minecraft:arrow 128");
   }
 
   public void equip(Player player, EquipmentSet set) {
