@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFactory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
@@ -47,7 +48,7 @@ public class Equipment {
 
   }
 
-  public void equipGunner(Player player) {
+  public void equipGunner(Player player, String equipType) {
     PlayerInventory inventory = player.getInventory();
     if (!inventory.getHelmet().getItemMeta().isUnbreakable()) {
       return;
@@ -58,14 +59,60 @@ public class Equipment {
     inv.clear();
     inv.setHelmet(helmet);
 
-    Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
-        "give " + player.getName() + " minecraft:crossbow{Enchantments:[{id:quick_charge,lvl:5}]}");
-    Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
-        + " minecraft:splash_potion{display:{Name:\"\\\"Splash Potion\\\"\"},CustomPotionColor:16711680,CustomPotionEffects:[{Id:7,Amplifier:2,Duration:200}]} 1");
-    Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
-        + " minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},CustomPotionColor:65322,CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
-    Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
-        "give " + player.getName() + " minecraft:arrow 128");
+
+    if (equipType.equals("gunner")) {
+
+      ItemStack chest = new ItemStack(Material.IRON_CHESTPLATE);
+      inv.setChestplate(chest);
+
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
+          + " minecraft:crossbow{Enchantments:[{id:quick_charge,lvl:5}]}");
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
+          + " minecraft:splash_potion{display:{Name:\"\\\"Splash Potion\\\"\"},CustomPotionColor:16711680,CustomPotionEffects:[{Id:7,Amplifier:2,Duration:200}]} 1");
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
+          + " minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},CustomPotionColor:65322,CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
+          "give " + player.getName() + " minecraft:arrow 128");
+
+      player.setFoodLevel(20);
+
+    } else if (equipType.equals("knight")) {
+
+      ItemStack shield = new ItemStack(Material.SHIELD);
+      ItemMeta shieldMeta = plugin.getServer().getItemFactory().getItemMeta(Material.SHIELD);
+      shieldMeta.setUnbreakable(true);
+      inv.setItemInOffHand(shield);
+
+      ItemStack chest = new ItemStack(Material.IRON_CHESTPLATE);
+      inv.setChestplate(chest);
+      ItemStack leggings = new ItemStack(Material.IRON_LEGGINGS);
+      inv.setLeggings(leggings);
+      ItemStack boots = new ItemStack(Material.IRON_BOOTS);
+      inv.setBoots(boots);
+
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
+          + " minecraft:iron_sword{display:{Name:\"\\\"ソード\\\"\"},Unbreakable:1,Enchantments:[{id:sharpness,lvl:3},{id:knockback,lvl:1}]}");
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
+          + " minecraft:lingering_potion{display:{Name:\"\\\"Poison Potion\\\"\"},CustomPotionEffects:[{Id:19,Amplifier:0,Duration:120}]} 1");
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
+          + " minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},CustomPotionColor:65322,CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
+
+      player.setFoodLevel(6);
+
+    } else if (equipType.equals("sasano")) {
+
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
+          + " minecraft:bow{Unbreakable:1,Enchantments:[{id:sharpness,lvl:5}]}");
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
+          + " minecraft:splash_potion{display:{Name:\"\\\"M84\\\"\"},CustomPotionEffects:[{Id:15,Amplifier:0,Duration:120}]} 1");
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
+          + " minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},CustomPotionColor:65322,CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
+          "give " + player.getName() + " minecraft:arrow 128");
+
+      player.setFoodLevel(20);
+
+    }
   }
 
   public void equip(Player player, EquipmentSet set) {
