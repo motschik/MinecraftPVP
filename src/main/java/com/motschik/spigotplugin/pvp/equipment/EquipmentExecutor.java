@@ -28,9 +28,8 @@ public class EquipmentExecutor implements CommandExecutor {
     if ("equip".equals(str)) {
       if ("teamhelmet".equals(args[0])) {
         equipment.equipTeamHelmet((Player) sender);
-      }
-      if ("gunner".equals(args[0])) {
-        equipment.equipGunner((Player) sender);
+      } else {
+        equipment.equipGunner((Player) sender, args[0]);
       }
     }
 
