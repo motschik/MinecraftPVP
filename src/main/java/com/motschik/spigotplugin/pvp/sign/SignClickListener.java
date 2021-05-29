@@ -1,5 +1,8 @@
 package com.motschik.spigotplugin.pvp.sign;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -12,6 +15,8 @@ import com.motschik.spigotplugin.pvp.PvpPlugin;
 public class SignClickListener implements Listener {
 
   private final PvpPlugin plugin;
+
+  private final Map<String, LocalDateTime> coolTimePlayer = new HashMap<>();
 
   public SignClickListener(PvpPlugin plugin) {
     this.plugin = plugin;
@@ -35,12 +40,19 @@ public class SignClickListener implements Listener {
         || material == Material.CRIMSON_WALL_SIGN || material == Material.WARPED_WALL_SIGN) {
       Sign sign = (Sign) clickedBlock.getState();
 
-      String[] lines = sign.getLines();// 全行取得
+      String[] lines = sign.getLines(); // 全行取得
       if ("[pvp]".equals(lines[0])) {
-        if ("gunner".equalsIgnoreCase(lines[1])) {
-          plugin.getEquipment().equipGunner(event.getPlayer());
+        LocalDateTime sendTime = coolTimePlayer.get(event.getPlayer().getName());
+        if (sendTime == null) {
+          plugin.getEquipment().equipGunner(event.getPlayer(), lines[1]);
+          coolTimePlayer.put(event.getPlayer().getName(), LocalDateTime.now());
+        } else if (sendTime.isBefore(LocalDateTime.now().minusNanos(100000000))) {
+          plugin.getEquipment().equipGunner(event.getPlayer(), lines[1]);
+          coolTimePlayer.replace(event.getPlayer().getName(), LocalDateTime.now());
         }
       }
+
+
     }
   }
 
