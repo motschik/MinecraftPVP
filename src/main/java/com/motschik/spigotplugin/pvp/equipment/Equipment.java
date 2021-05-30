@@ -62,15 +62,22 @@ public class Equipment {
 
     if (equipType.equals("gunner")) {
 
-      ItemStack chest = new ItemStack(Material.IRON_CHESTPLATE);
-      inv.setChestplate(chest);
+      // クロスボウ:高速装填レベル5
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
+          + " minecraft:crossbow{"//
+          + "Enchantments:[{id:quick_charge,lvl:5}]}");
 
-      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
-          + " minecraft:crossbow{Enchantments:[{id:quick_charge,lvl:5}]}");
-      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
-          + " minecraft:splash_potion{display:{Name:\"\\\"Splash Potion\\\"\"},CustomPotionColor:16711680,CustomPotionEffects:[{Id:7,Amplifier:2,Duration:200}]} 1");
-      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
-          + " minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},CustomPotionColor:65322,CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
+      // 煙幕ポーション
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
+          + " minecraft:splash_potion{display:{"//
+          + "Name:\"\\\"M84\\\"\"},"//
+          + "CustomPotionEffects:[{Id:15,Amplifier:0,Duration:120}]} 1");
+      // 回復ポーション
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
+          + " minecraft:potion{display:{" + "Name:\"\\\"Heal Potion\\\"\"},"//
+          + "CustomPotionColor:65322,"//
+          + "CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
+      // 矢
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
           "give " + player.getName() + " minecraft:arrow 128");
 
@@ -78,35 +85,66 @@ public class Equipment {
 
     } else if (equipType.equals("knight")) {
 
+      // 盾
       ItemStack shield = new ItemStack(Material.SHIELD);
       ItemMeta shieldMeta = plugin.getServer().getItemFactory().getItemMeta(Material.SHIELD);
       shieldMeta.setUnbreakable(true);
+
       inv.setItemInOffHand(shield);
 
+      // 鉄チェストプレート
       ItemStack chest = new ItemStack(Material.IRON_CHESTPLATE);
+      chest.addEnchantment(Enchantment.PROTECTION_PROJECTILE, 4);
       inv.setChestplate(chest);
+      // 鉄レギンス
       ItemStack leggings = new ItemStack(Material.IRON_LEGGINGS);
+      leggings.addEnchantment(Enchantment.PROTECTION_PROJECTILE, 4);
       inv.setLeggings(leggings);
+      // 鉄ブーツ
       ItemStack boots = new ItemStack(Material.IRON_BOOTS);
       inv.setBoots(boots);
 
-      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
-          + " minecraft:iron_sword{display:{Name:\"\\\"ソード\\\"\"},Unbreakable:1,Enchantments:[{id:sharpness,lvl:3},{id:knockback,lvl:1}]}");
-      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
-          + " minecraft:lingering_potion{display:{Name:\"\\\"Poison Potion\\\"\"},CustomPotionEffects:[{Id:19,Amplifier:0,Duration:120}]} 1");
-      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
-          + " minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},CustomPotionColor:65322,CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
+      // ソード：ダメージ増加レベル3、ノックバックレベル1
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
+          + " minecraft:iron_sword{display:{"//
+          + "Name:\"\\\"ソード\\\"\"}," + "Unbreakable:1,Enchantments:[{id:sharpness,lvl:2},"//
+          + "{id:knockback,lvl:1}]}");
+      // 攻撃ポーション
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
+          + " minecraft:splash_potion{display:{"//
+          + "Name:\"\\\"Splash Potion\\\"\"},"//
+          + "CustomPotionColor:16711680,"//
+          + "CustomPotionEffects:[{Id:7,Amplifier:2,Duration:200}]} 1");
+      // 回復ポーション
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
+          + " minecraft:potion{display:{"//
+          + "Name:\"\\\"Heal Potion\\\"\"},"//
+          + "CustomPotionColor:65322,"//
+          + "CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
 
       player.setFoodLevel(6);
 
     } else if (equipType.equals("sasano")) {
 
-      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
-          + " minecraft:bow{Unbreakable:1,Enchantments:[{id:sharpness,lvl:5}]}");
-      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
-          + " minecraft:splash_potion{display:{Name:\"\\\"M84\\\"\"},CustomPotionEffects:[{Id:15,Amplifier:0,Duration:120}]} 1");
-      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()
-          + " minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},CustomPotionColor:65322,CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
+      ItemStack chest = new ItemStack(Material.IRON_CHESTPLATE);
+      inv.setChestplate(chest);
+
+      // 弓：射撃ダメージ増加5、耐久無限
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
+          + " minecraft:bow{"//
+          + "Unbreakable:1,"//
+          + "Enchantments:[{id:power,lvl:5}]}");
+      // 毒ポーション
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
+          + " minecraft:lingering_potion{display:{"//
+          + "Name:\"\\\"Poison Potion\\\"\"},"//
+          + "CustomPotionEffects:[{Id:19,Amplifier:0,Duration:120}]} 1");
+      // 回復ポーション
+      Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
+          + " minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},"//
+          + "CustomPotionColor:65322,"//
+          + "CustomPotionEffects:[{Id:6,Amplifier:2,Duration:200}]} 3");
+      // 矢
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
           "give " + player.getName() + " minecraft:arrow 128");
 
