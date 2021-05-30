@@ -8,6 +8,7 @@ import com.motschik.spigotplugin.pvp.executor.AreaExecutor;
 import com.motschik.spigotplugin.pvp.executor.GameExecutor;
 import com.motschik.spigotplugin.pvp.game.TeamGame;
 import com.motschik.spigotplugin.pvp.rule.AreaButtle;
+import com.motschik.spigotplugin.pvp.rule.GachihokoListener;
 import com.motschik.spigotplugin.pvp.sign.SignClickListener;
 
 public class PvpPlugin extends JavaPlugin {
@@ -59,5 +60,6 @@ public class PvpPlugin extends JavaPlugin {
     EquipmentExecutor equipExecutor = new EquipmentExecutor(this, equipment);
 
     getServer().getPluginManager().registerEvents(new SignClickListener(this), this);
+    getServer().getPluginManager().registerEvents(new GachihokoListener(this), this);
   }
 }
