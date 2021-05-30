@@ -66,12 +66,12 @@ public class Equipment {
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:crossbow{"//
           + "Enchantments:[{id:quick_charge,lvl:5}]}");
-
-      // 煙幕ポーション
+      // 攻撃ポーション
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:splash_potion{display:{"//
-          + "Name:\"\\\"M84\\\"\"},"//
-          + "CustomPotionEffects:[{Id:15,Amplifier:0,Duration:120}]} 1");
+          + "Name:\"\\\"Splash Potion\\\"\"},"//
+          + "CustomPotionColor:16711680,"//
+          + "CustomPotionEffects:[{Id:7,Amplifier:2,Duration:200}]} 1");
       // 回復ポーション
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:potion{display:{" + "Name:\"\\\"Heal Potion\\\"\"},"//
@@ -94,11 +94,9 @@ public class Equipment {
 
       // 鉄チェストプレート
       ItemStack chest = new ItemStack(Material.IRON_CHESTPLATE);
-      chest.addEnchantment(Enchantment.PROTECTION_PROJECTILE, 4);
       inv.setChestplate(chest);
       // 鉄レギンス
       ItemStack leggings = new ItemStack(Material.IRON_LEGGINGS);
-      leggings.addEnchantment(Enchantment.PROTECTION_PROJECTILE, 4);
       inv.setLeggings(leggings);
       // 鉄ブーツ
       ItemStack boots = new ItemStack(Material.IRON_BOOTS);
@@ -109,12 +107,11 @@ public class Equipment {
           + " minecraft:iron_sword{display:{"//
           + "Name:\"\\\"ソード\\\"\"}," + "Unbreakable:1,Enchantments:[{id:sharpness,lvl:2},"//
           + "{id:knockback,lvl:1}]}");
-      // 攻撃ポーション
+      // 煙幕ポーション
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:splash_potion{display:{"//
-          + "Name:\"\\\"Splash Potion\\\"\"},"//
-          + "CustomPotionColor:16711680,"//
-          + "CustomPotionEffects:[{Id:7,Amplifier:2,Duration:200}]} 1");
+          + "Name:\"\\\"M84\\\"\"},"//
+          + "CustomPotionEffects:[{Id:15,Amplifier:0,Duration:120}]} 1");
       // 回復ポーション
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:potion{display:{"//
@@ -133,12 +130,12 @@ public class Equipment {
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:bow{"//
           + "Unbreakable:1,"//
-          + "Enchantments:[{id:power,lvl:5}]}");
+          + "Enchantments:[{id:power,lvl:6}]}");
       // 毒ポーション
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:lingering_potion{display:{"//
           + "Name:\"\\\"Poison Potion\\\"\"},"//
-          + "CustomPotionEffects:[{Id:19,Amplifier:0,Duration:120}]} 1");
+          + "CustomPotionEffects:[{Id:19,Amplifier:0,Duration:240}]} 1");
       // 回復ポーション
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},"//
