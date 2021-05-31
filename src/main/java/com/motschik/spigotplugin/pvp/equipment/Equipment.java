@@ -105,13 +105,13 @@ public class Equipment {
       // ソード：ダメージ増加レベル3、ノックバックレベル1
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:iron_sword{display:{"//
-          + "Name:\"\\\"ソード\\\"\"}," + "Unbreakable:1,Enchantments:[{id:sharpness,lvl:2},"//
+          + "Name:\"\\\"ソード\\\"\"}," + "Unbreakable:1,Enchantments:[{id:sharpness,lvl:3},"//
           + "{id:knockback,lvl:1}]}");
-      // 煙幕ポーション
+      // 毒ポーション
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
-          + " minecraft:splash_potion{display:{"//
-          + "Name:\"\\\"M84\\\"\"},"//
-          + "CustomPotionEffects:[{Id:15,Amplifier:0,Duration:120}]} 1");
+          + " minecraft:lingering_potion{display:{"//
+          + "Name:\"\\\"Poison Potion\\\"\"},"//
+          + "CustomPotionEffects:[{Id:19,Amplifier:0,Duration:200}]} 1");
       // 回復ポーション
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:potion{display:{"//
@@ -130,12 +130,12 @@ public class Equipment {
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:bow{"//
           + "Unbreakable:1,"//
-          + "Enchantments:[{id:power,lvl:6}]}");
-      // 毒ポーション
+          + "Enchantments:[{id:power,lvl:7}]}");
+      // 衰退ポーション
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:lingering_potion{display:{"//
-          + "Name:\"\\\"Poison Potion\\\"\"},"//
-          + "CustomPotionEffects:[{Id:19,Amplifier:0,Duration:240}]} 1");
+          + "Name:\"\\\"Super Poison Potion\\\"\"},"//
+          + "CustomPotionEffects:[{Id:20,Amplifier:0,Duration:200}]} 1");
       // 回復ポーション
       Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "give " + player.getName()//
           + " minecraft:potion{display:{Name:\"\\\"Heal Potion\\\"\"},"//
