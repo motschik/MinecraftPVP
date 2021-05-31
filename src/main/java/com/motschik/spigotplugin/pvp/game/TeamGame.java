@@ -2,6 +2,7 @@ package com.motschik.spigotplugin.pvp.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -178,6 +179,26 @@ public class TeamGame extends Game {
       return true;
     }
     return inventory.isEmpty();
+  }
+
+  /**
+   * チームから抜ける.
+   *
+   * @param player プレイヤー
+   * @return result
+   */
+  public boolean removeTeamPlayer(Player player) {
+    Optional<Team> team =
+        board.getTeams().stream().filter(t -> t.hasEntry(player.getName())).findFirst();
+    if (team.isPresent()) {
+      team.get().removeEntry(player.getName());
+      PlayerInventory inventory = player.getInventory();
+      ItemStack helmet = inventory.getHelmet();
+      if (helmet != null && helmet.getItemMeta().isUnbreakable()) {
+        inventory.clear();
+      }
+    }
+    return true;
   }
 
   // チーム解散
