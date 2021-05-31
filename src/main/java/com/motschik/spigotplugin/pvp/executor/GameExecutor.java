@@ -70,6 +70,17 @@ public class GameExecutor implements CommandExecutor {
 
         game.joinTeam(args[0], playerName);
       }
+    } else if ("removeteamplayer".equals(str)) {
+      sender.sendMessage(str);
+      if (args.length == 1) {
+        game.removeTeamPlayer((Player) sender);
+      } else if (args.length == 2) {
+
+        Player playerName = plugin.getServer().getOnlinePlayers().stream()
+            .filter(player -> player.getName().equals(args[1])).findFirst().get();
+
+        game.removeTeamPlayer(playerName);
+      }
     }
 
 
