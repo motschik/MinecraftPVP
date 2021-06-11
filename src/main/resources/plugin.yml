@@ -22,3 +22,5 @@ commands:
     description: area setting.
   equip:
     description: equipment.
+  disc:
+    description: disc setting.

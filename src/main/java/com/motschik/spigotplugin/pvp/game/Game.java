@@ -19,7 +19,7 @@ public abstract class Game {
   protected Scoreboard board;
 
   protected List<PvpRule> ruleList = new ArrayList<>();
-  protected int selectedRule = 0;
+  protected int selectedRule = 1;
 
   protected boolean enable = false;
 

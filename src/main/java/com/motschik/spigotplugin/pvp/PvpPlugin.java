@@ -6,14 +6,18 @@ import com.motschik.spigotplugin.pvp.equipment.Equipment;
 import com.motschik.spigotplugin.pvp.equipment.EquipmentExecutor;
 import com.motschik.spigotplugin.pvp.executor.AreaExecutor;
 import com.motschik.spigotplugin.pvp.executor.GameExecutor;
+import com.motschik.spigotplugin.pvp.executor.HokoExecutor;
 import com.motschik.spigotplugin.pvp.game.TeamGame;
 import com.motschik.spigotplugin.pvp.rule.AreaButtle;
+import com.motschik.spigotplugin.pvp.rule.Gachihoko;
+import com.motschik.spigotplugin.pvp.rule.GachihokoListener;
 import com.motschik.spigotplugin.pvp.sign.SignClickListener;
 
 public class PvpPlugin extends JavaPlugin {
 
   private TeamGame game;
   private AreaButtle area;
+  private Gachihoko hoko;
   private Equipment equipment;
 
   public TeamGame getGame() {
@@ -50,14 +54,18 @@ public class PvpPlugin extends JavaPlugin {
     game = new TeamGame(this);
     area = new AreaButtle(game, this);
     game.addRule(area);
+    hoko = new Gachihoko(game, this);
+    game.addRule(hoko);
 
 
     FileConfiguration config = getConfig();
 
     GameExecutor gameExecutor = new GameExecutor(this, game);
     AreaExecutor areaExecutor = new AreaExecutor(this, area);
+    HokoExecutor hokoExecutor = new HokoExecutor(this, hoko);
     EquipmentExecutor equipExecutor = new EquipmentExecutor(this, equipment);
 
     getServer().getPluginManager().registerEvents(new SignClickListener(this), this);
+    getServer().getPluginManager().registerEvents(new GachihokoListener(this), this);
   }
 }
