@@ -18,6 +18,8 @@ commands:
     description: remove all team.
   jointeam:
     description: join team.
+  removeteamplayer:
+    description: player remove team.
   area:
     description: area setting.
   equip:
